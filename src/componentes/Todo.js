@@ -1,20 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { startChangeDoneAction } from "../modules/actions/TasksAction";
 
 const Todo = () => {
-  // obtebner el state
+  // obtener el state
   const tasks = useSelector((state) => state.tasks.tasks);
-  
-  const handleClick = (id) => {
-    console.log(id);
-    // const index = todoTasks.findIndex((t) => t.id === id);
+  const dispatch = useDispatch();
 
-    // setDoneTask([...doneTask, todoTasks[index]]);
-
-    // // eliminar
-    // setTodoTasks([todoTasks.filter((item) => item.id !== id)]);
-    // console.log("done", doneTask);
+  const handleClick = (task) => {
+    dispatch(startChangeDoneAction(task));
   };
+
   return (
     <div className="bg-cyan-800">
       <div className="border-b-2 p-4">
@@ -48,7 +44,7 @@ const Todo = () => {
                 </div>
               </div>
               <div className="bg-emerald-400 text-center py-2 px-5 text-white rounded-b-lg">
-                <button onClick={() => handleClick(task.id)} type="button">
+                <button onClick={() => handleClick(task)} type="button">
                   DONE
                 </button>
               </div>
