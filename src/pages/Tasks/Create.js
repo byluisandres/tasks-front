@@ -1,25 +1,34 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { createNewTaskAction } from "../../modules/actions/TasksAction";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
-  const [doneTask, setDoneTask] = useState([]);
+  let navigation = useNavigate();
+
+  // Redux
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.tasks.loading);
+
   const [message, setMessage] = useState("");
-  const [tasks, setTasks] = useState({
-    id: new Date().getTime(),
+
+  const [task, setTask] = useState({
     title: "",
     tags: "",
     description: "",
+    date: new Date(),
     done: false,
   });
-  const { title, tags, description } = tasks;
+  const { title, tags, description } = task;
 
-  // Array con las tareas
-  const [todoTasks, setTodoTasks] = useState([]);
+  // llama al action
+  const addTask = (task) => dispatch(createNewTaskAction(task));
 
   // Guarda en el state de tasks
   const handleChange = (e) => {
-    setTasks({
-      ...tasks,
+    setTask({
+      ...task,
       [e.target.name]: e.target.value,
     });
   };
@@ -36,25 +45,33 @@ const Create = () => {
     ) {
       setMessage("Todos los campos son obligatorios");
     } else {
-      // Guardar las tareas en un array
-      setTodoTasks([...todoTasks, tasks]);
+      // añadir un id unico
+      task.id = new Date().getTime();
+      // Enviar la tarea par guardar en el state
+      addTask(task);
+
       // Resetear el mensaje
       setMessage("");
 
-      // Resetear formulario
-      setTasks({
-        id: new Date().getTime(),
+      // // Resetear formulario
+      setTask({
         title: "",
         tags: "",
         description: "",
+        date: "",
         done: false,
       });
+      if (!loading) {
+        navigation("/", { replace: true });
+      }
     }
   };
   return (
     <>
       <div className="w-10/12  my-5 container mx-auto">
-        <Link to="/" className="underline text-xl">Volver</Link>
+        <Link to="/" className="underline text-xl">
+          Volver
+        </Link>
       </div>
       <div className="bg-cyan-800 my-5  w-10/12 container mx-auto">
         <form method="POST" onSubmit={handleSubmit}>
@@ -119,6 +136,7 @@ const Create = () => {
             </button>
           </div>
         </form>
+        {loading ? <span>Guardando</span> : null}
       </div>
     </>
   );

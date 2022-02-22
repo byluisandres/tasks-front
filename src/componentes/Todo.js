@@ -1,24 +1,28 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const Todo = ({ todoTasks, setTodoTasks, setDoneTask, doneTask }) => {
-  // const handleClick = (id) => {
-  //   console.log(id);
-  //   const index = todoTasks.findIndex((t) => t.id === id);
+const Todo = () => {
+  // obtebner el state
+  const tasks = useSelector((state) => state.tasks.tasks);
+  
+  const handleClick = (id) => {
+    console.log(id);
+    // const index = todoTasks.findIndex((t) => t.id === id);
 
-  //   setDoneTask([...doneTask, todoTasks[index]]);
+    // setDoneTask([...doneTask, todoTasks[index]]);
 
-  //   // eliminar
-  //   setTodoTasks([todoTasks.filter((item) => item.id !== id)]);
-  //   console.log("done", doneTask);
-  // };
+    // // eliminar
+    // setTodoTasks([todoTasks.filter((item) => item.id !== id)]);
+    // console.log("done", doneTask);
+  };
   return (
     <div className="bg-cyan-800">
       <div className="border-b-2 p-4">
         <h2 className="text-3xl text-white">TO-DO</h2>
       </div>
-      {/*<div className="p-4">
-        {todoTasks.length > 0 &&
-          todoTasks.map((task, index) => (
+      <div className="p-4">
+        {tasks.length > 0 &&
+          tasks.map((task, index) => (
             <div key={index} className="bg-white rounded-lg mb-5">
               <div className="border-b-2 p-4">
                 <h2 className="text-xl ">{task.title}</h2>
@@ -39,7 +43,7 @@ const Todo = ({ todoTasks, setTodoTasks, setDoneTask, doneTask }) => {
                 </div>
                 <div className=" flex justify-end items-center">
                   <span className="bg-zinc-500 rounded-lg p-1  text-white">
-                    Fecha
+                    {task.date.toDateString()}
                   </span>
                 </div>
               </div>
@@ -50,7 +54,7 @@ const Todo = ({ todoTasks, setTodoTasks, setDoneTask, doneTask }) => {
               </div>
             </div>
           ))}
-      </div> */}
+      </div>
     </div>
   );
 };
