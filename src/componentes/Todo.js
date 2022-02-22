@@ -1,22 +1,22 @@
 import React from "react";
 
 const Todo = ({ todoTasks, setTodoTasks, setDoneTask, doneTask }) => {
-  const handleClick = (id) => {
-    console.log(id);
-    const index = todoTasks.findIndex((t) => t.id === id);
+  // const handleClick = (id) => {
+  //   console.log(id);
+  //   const index = todoTasks.findIndex((t) => t.id === id);
 
-    setDoneTask([...doneTask, todoTasks[index]]);
+  //   setDoneTask([...doneTask, todoTasks[index]]);
 
-    // eliminar
-    setTodoTasks([todoTasks.filter((item) => item.id !== id)]);
-    console.log("done", doneTask);
-  };
+  //   // eliminar
+  //   setTodoTasks([todoTasks.filter((item) => item.id !== id)]);
+  //   console.log("done", doneTask);
+  // };
   return (
     <div className="bg-cyan-800">
       <div className="border-b-2 p-4">
         <h2 className="text-3xl text-white">TO-DO</h2>
       </div>
-      <div className="p-4">
+      {/*<div className="p-4">
         {todoTasks.length > 0 &&
           todoTasks.map((task, index) => (
             <div key={index} className="bg-white rounded-lg mb-5">
@@ -50,7 +50,7 @@ const Todo = ({ todoTasks, setTodoTasks, setDoneTask, doneTask }) => {
               </div>
             </div>
           ))}
-      </div>
+      </div> */}
     </div>
   );
 };

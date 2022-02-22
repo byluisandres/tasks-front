@@ -7,7 +7,7 @@ const Done = ({ doneTask }) => {
         <h2 className="text-3xl text-white">DONE</h2>
       </div>
       <div className="p-4">
-        {doneTask.length > 0 &&
+        {/* {doneTask.length > 0 &&
           doneTask.map((task, index) => (
             <div key={index} className="bg-white rounded-lg mb-5">
               <div className="border-b-2 p-4">
@@ -37,7 +37,7 @@ const Done = ({ doneTask }) => {
                 <button type="button">TODO</button>
               </div>
             </div>
-          ))}
+          ))} */}
       </div>
     </div>
   );
