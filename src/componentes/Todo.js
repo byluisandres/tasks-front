@@ -39,7 +39,7 @@ const Todo = () => {
                 </div>
                 <div className=" flex justify-end items-center">
                   <span className="bg-zinc-500 rounded-lg p-1  text-white">
-                    {task.date.toDateString()}
+                    {new Date(task.date).toDateString()}
                   </span>
                 </div>
               </div>

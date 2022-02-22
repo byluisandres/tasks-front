@@ -14,11 +14,17 @@ import {
   START_CHANGE_TODO_ERROR,
 } from "../types/tasksTypes";
 
+// Services
+import { getTasks, createTasks } from "../../services/tasks";
+
+// Crear un tarea
 export function createNewTaskAction(task) {
   return async (dispatch) => {
     dispatch(addTask());
     try {
-      dispatch(addTaskSuccess(task));
+      const res = await createTasks(task);
+      const response = await res.json();
+      dispatch(addTaskSuccess(response));
     } catch (error) {
       console.log(error);
       dispatch(addTaskError());
@@ -30,9 +36,9 @@ const addTask = () => ({
   payload: true,
 });
 
-const addTaskSuccess = (task) => ({
+const addTaskSuccess = (response) => ({
   type: ADD_TASK_SUCCESS,
-  payload: task,
+  payload: response,
 });
 const addTaskError = () => ({
   type: ADD_TASK_ERROR,
@@ -44,7 +50,9 @@ export function getTasksAction() {
   return async (dispatch) => {
     dispatch(downloadTasks());
     try {
-      dispatch(downloadTasksSuccess());
+      const res = await getTasks();
+      const response = await res.json();
+      dispatch(downloadTasksSuccess(response));
     } catch (error) {
       console.log(error);
       dispatch(downloadTasksError());
@@ -56,9 +64,9 @@ const downloadTasks = () => ({
   payload: true,
 });
 
-const downloadTasksSuccess = () => ({
+const downloadTasksSuccess = (data) => ({
   type: DOWNLOAD_TASKS_SUCCESS,
-  payload: "",
+  payload: data,
 });
 
 const downloadTasksError = () => ({

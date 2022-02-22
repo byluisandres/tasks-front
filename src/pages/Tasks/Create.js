@@ -17,8 +17,6 @@ const Create = () => {
     title: "",
     tags: "",
     description: "",
-    date: new Date(),
-    done: false,
   });
   const { title, tags, description } = task;
 
@@ -45,8 +43,6 @@ const Create = () => {
     ) {
       setMessage("Todos los campos son obligatorios");
     } else {
-      // añadir un id unico
-      task.id = new Date().getTime();
       // Enviar la tarea par guardar en el state
       addTask(task);
 
@@ -58,8 +54,6 @@ const Create = () => {
         title: "",
         tags: "",
         description: "",
-        date: "",
-        done: false,
       });
       if (!loading) {
         navigation("/", { replace: true });
