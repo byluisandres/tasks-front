@@ -57,59 +57,84 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="bg-gray-300 ">
       <Header />
-      <div className="">
+      <div className="bg-cyan-800 my-10  w-10/12 container mx-auto">
         <form method="POST" onSubmit={handleSubmit}>
-          <h2>Create</h2>
-          <div>
-            <label htmlFor="title">Título</label>
-            <input
-              id="title"
-              name="title"
-              className=""
-              value={title}
-              onChange={handleChange}
-            />
+          <div className="border-b-2 p-4">
+            <h2 className="text-3xl text-white">Create</h2>
           </div>
-          <div>
-            <label htmlFor="tags">Tags</label>
-            <input
-              id="tags"
-              name="tags"
-              className=""
-              value={tags}
-              onChange={handleChange}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2  sm:gap-10 gap-0 p-4">
+            <div>
+              <div className="mb-3">
+                <label htmlFor="title" className="text-white text-xl">
+                  Título
+                </label>
+                <input
+                  id="title"
+                  name="title"
+                  className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  value={title}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="tags" className="text-white text-xl">
+                  Tags
+                </label>
+                <input
+                  id="tags"
+                  name="tags"
+                  className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  value={tags}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="description" className="text-white text-xl">
+                Descripción
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                value={description}
+                onChange={handleChange}
+              ></textarea>
+            </div>
           </div>
-          <div>
-            <label htmlFor="description">Descripción</label>
-            <textarea
-              id="description"
-              name="description"
-              className=""
-              value={description}
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          <div>{message}</div>
-          <div>
-            <button>Enviar</button>
+
+          {message && (
+            <div className="p-4">
+              <div className="bg-red-50 text-red-900 p-2 text-xl font-semibold border-l-8 border-l-red-900">
+                {message}
+              </div>
+            </div>
+          )}
+          <div className="flex justify-end items-center p-4">
+            <button
+              className="bg-emerald-400 text-center py-1 px-5 text-white rounded-sm w-64"
+              type="submit"
+            >
+              Enviar
+            </button>
           </div>
         </form>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-10 w-10/12   container mx-auto ">
+        {/* TODO */}
+        <Todo
+          todoTasks={todoTasks}
+          setTodoTasks={setTodoTasks}
+          setDoneTask={setDoneTask}
+          doneTask={doneTask}
+        />
 
-      {/* TODO */}
-      <Todo
-        todoTasks={todoTasks}
-        setTodoTasks={setTodoTasks}
-        setDoneTask={setDoneTask}
-        doneTask={doneTask}
-      />
-
-      {/* DONE */}
-      <Done doneTask={doneTask} />
-
+        {/* DONE */}
+        <Done doneTask={doneTask} />
+      </div>
       <Footer />
     </div>
   );
