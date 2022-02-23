@@ -8,6 +8,12 @@ const Todo = () => {
   const dispatch = useDispatch();
 
   const handleClick = (task) => {
+    if (!task.done) {
+      task.done = true;
+    } else {
+      task.done = false;
+    }
+    console.log("to-do", task.done);
     dispatch(startChangeDoneAction(task));
   };
 

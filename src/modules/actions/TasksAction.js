@@ -6,6 +6,9 @@ import {
   START_DOWNLOAD_TASKS,
   DOWNLOAD_TASKS_SUCCESS,
   DOWNLOAD_TASKS_ERROR,
+  START_DOWNLOAD_TASKS_DONE,
+  DOWNLOAD_TASKS_SUCCESS_DONE,
+  DOWNLOAD_TASKS_ERROR_DONE,
   START_CHANGE_DONE,
   START_CHANGE_DONE_SUCCESS,
   START_CHANGE_DONE_ERROR,
@@ -15,7 +18,12 @@ import {
 } from "../types/tasksTypes";
 
 // Services
-import { getTasks, createTasks } from "../../services/tasks";
+import {
+  getTasks,
+  getTasksDone,
+  createTasks,
+  editTasks,
+} from "../../services/tasks";
 
 // Crear un tarea
 export function createNewTaskAction(task) {
@@ -74,11 +82,42 @@ const downloadTasksError = () => ({
   payload: true,
 });
 
+// Obtener las tareas hechas
+export function getTasksDoneAction() {
+  return async (dispatch) => {
+    dispatch(downloadTasksDone());
+    try {
+      const res = await getTasksDone();
+      const response = await res.json();
+      dispatch(downloadTasksDoneSuccess(response));
+    } catch (error) {
+      console.log(error);
+      dispatch(downloadTasksDoneError());
+    }
+  };
+}
+const downloadTasksDone = () => ({
+  type: START_DOWNLOAD_TASKS_DONE,
+  payload: true,
+});
+
+const downloadTasksDoneSuccess = (data) => ({
+  type: DOWNLOAD_TASKS_SUCCESS_DONE,
+  payload: data,
+});
+
+const downloadTasksDoneError = () => ({
+  type: DOWNLOAD_TASKS_ERROR_DONE,
+  payload: true,
+});
+
 // Cambiar a hecho
 export function startChangeDoneAction(task) {
   return async (dispatch) => {
-    console.log(task);
     dispatch(startChangeDone());
+    const res = await editTasks(task);
+    const response = await res.json();
+    console.log(response);
     try {
       dispatch(startChangeDoneSuccess(task));
     } catch (error) {
@@ -105,6 +144,10 @@ const startChangeDoneError = () => ({
 export function startChangeTodoAction(task) {
   return async (dispatch) => {
     dispatch(startChangeTodo());
+    console.log(task);
+    const res = await editTasks(task);
+    const response = await res.json();
+    console.log(response);
     try {
       dispatch(startChangeTodoSuccess(task));
     } catch (error) {

@@ -3,7 +3,10 @@ import Todo from "../../componentes/Todo";
 import Done from "../../componentes/Done";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getTasksAction } from "../../modules/actions/TasksAction";
+import {
+  getTasksAction,
+  getTasksDoneAction,
+} from "../../modules/actions/TasksAction";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -11,6 +14,8 @@ const Index = () => {
   useEffect(() => {
     const loadTasks = () => dispatch(getTasksAction());
     loadTasks();
+    const loadTasksDone = () => dispatch(getTasksDoneAction());
+    loadTasksDone();
   }, []);
   return (
     <>

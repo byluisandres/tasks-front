@@ -7,6 +7,12 @@ const Done = () => {
   const tasksdone = useSelector((state) => state.tasks.tasksdone);
   const dispatch = useDispatch();
   const handleClick = (task) => {
+    if (task.done) {
+      task.done = false;
+    } else {
+      task.done = true;
+    }
+    console.log("done", task.done);
     dispatch(startChangeTodoAction(task));
   };
   return (
@@ -43,7 +49,7 @@ const Done = () => {
               </div>
               <div className="bg-orange-700 text-center py-2 px-5 text-white rounded-b-lg">
                 <button onClick={() => handleClick(task)} type="button">
-                  DONE
+                  TO-DO
                 </button>
               </div>
             </div>
